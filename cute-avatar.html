@@ -1,0 +1,2394 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Create your own cute cartoon profile avatar."
+    >
+
+    <title>My Cute Avatar Creator 🎀</title>
+
+
+    <style>
+
+        /* ==============================
+           RESET
+        ============================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* ==============================
+           BODY
+        ============================== */
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffdff0,
+                    #eadcff
+                );
+
+            color: #60496d;
+
+            padding: 20px;
+        }
+
+
+        /* ==============================
+           MAIN CONTAINER
+        ============================== */
+
+        .container {
+
+            width: 100%;
+            max-width: 1100px;
+
+            margin: auto;
+        }
+
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        header {
+
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        header h1 {
+
+            font-size: clamp(
+                30px,
+                5vw,
+                48px
+            );
+
+            color: #9b68b5;
+
+            margin-bottom: 8px;
+        }
+
+
+        header p {
+
+            font-size: 16px;
+
+            color: #765d82;
+        }
+
+
+        /* ==============================
+           GAME AREA
+        ============================== */
+
+        .game {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 25px;
+        }
+
+
+        /* ==============================
+           CARDS
+        ============================== */
+
+        .card {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
+            border-radius: 25px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(
+                    120,
+                    80,
+                    140,
+                    0.15
+                );
+        }
+
+
+        /* ==============================
+           PREVIEW
+        ============================== */
+
+        .preview-card {
+
+            text-align: center;
+        }
+
+
+        .preview-card h2 {
+
+            color: #9566ad;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ==============================
+           AVATAR AREA
+        ============================== */
+
+        #avatar {
+
+            width: 310px;
+            height: 390px;
+
+            max-width: 100%;
+
+            margin: auto;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffd5e9,
+                    #e0d0ff
+                );
+
+            transition:
+                background 0.3s ease;
+        }
+
+
+        /* Decorative background circles */
+
+        #avatar::before {
+
+            content: "✦";
+
+            position: absolute;
+
+            top: 20px;
+            left: 25px;
+
+            font-size: 25px;
+
+            opacity: 0.6;
+        }
+
+
+        #avatar::after {
+
+            content: "♡";
+
+            position: absolute;
+
+            right: 25px;
+            top: 55px;
+
+            font-size: 30px;
+
+            opacity: 0.6;
+        }
+
+
+        /* ==============================
+           BODY
+        ============================== */
+
+        .avatar-body {
+
+            position: absolute;
+
+            bottom: -45px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width: 230px;
+            height: 170px;
+
+            border-radius:
+                100px
+                100px
+                0
+                0;
+
+            background: #d995c5;
+
+            z-index: 1;
+        }
+
+
+        /* ==============================
+           NECK
+        ============================== */
+
+        .neck {
+
+            position: absolute;
+
+            width: 50px;
+            height: 55px;
+
+            background: #f3bd9c;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            top: 245px;
+
+            z-index: 3;
+        }
+
+
+        /* ==============================
+           FACE
+        ============================== */
+
+        .face {
+
+            position: absolute;
+
+            width: 155px;
+            height: 180px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            top: 95px;
+
+            background: #f3bd9c;
+
+            border-radius:
+                48%
+                48%
+                50%
+                50%;
+
+            z-index: 4;
+
+            transition:
+                background 0.3s;
+        }
+
+
+        /* ==============================
+           HAIR
+        ============================== */
+
+        .hair {
+
+            position: absolute;
+
+            width: 175px;
+            height: 190px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            top: 75px;
+
+            background: #4b302a;
+
+            border-radius:
+                50%
+                50%
+                35%
+                35%;
+
+            z-index: 6;
+
+            pointer-events: none;
+        }
+
+
+        .hair::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 65px;
+            height: 100px;
+
+            right: -18px;
+            top: 75px;
+
+            background: inherit;
+
+            border-radius: 50%;
+        }
+
+
+        .hair-front {
+
+            position: absolute;
+
+            width: 95px;
+            height: 70px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            top: 75px;
+
+            background: inherit;
+
+            border-radius:
+                50%
+                50%
+                20%
+                20%;
+
+            z-index: 7;
+        }
+
+
+        /* ==============================
+           EYES
+        ============================== */
+
+        .eyes {
+
+            position: absolute;
+
+            top: 80px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width: 90px;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            z-index: 8;
+        }
+
+
+        .eye {
+
+            width: 25px;
+            height: 30px;
+
+            background: #39283e;
+
+            border-radius: 50%;
+
+            position: relative;
+        }
+
+
+        .eye::before {
+
+            content: "";
+
+            width: 7px;
+            height: 7px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            position: absolute;
+
+            top: 5px;
+            left: 5px;
+        }
+
+
+        /* ==============================
+           MOUTH
+        ============================== */
+
+        .mouth {
+
+            position: absolute;
+
+            top: 122px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            font-size: 30px;
+
+            color: #9d4f67;
+
+            z-index: 8;
+        }
+
+
+        /* ==============================
+           BLUSH
+        ============================== */
+
+        .blush {
+
+            position: absolute;
+
+            width: 30px;
+            height: 15px;
+
+            background: #ee8da9;
+
+            opacity: 0.45;
+
+            border-radius: 50%;
+
+            top: 112px;
+
+            z-index: 8;
+        }
+
+
+        .blush.left {
+
+            left: 20px;
+        }
+
+
+        .blush.right {
+
+            right: 20px;
+        }
+
+
+        /* ==============================
+           ACCESSORY
+        ============================== */
+
+        .accessory {
+
+            position: absolute;
+
+            top: 55px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            font-size: 55px;
+
+            z-index: 10;
+
+            pointer-events: none;
+        }
+
+
+        /* ==============================
+           PROFILE NAME
+        ============================== */
+
+        .profile-name {
+
+            margin-top: 18px;
+
+            font-size: 25px;
+
+            color: #8b5ba3;
+
+            font-weight: bold;
+        }
+
+
+        .profile-subtitle {
+
+            font-size: 14px;
+
+            color: #806b87;
+
+            margin-top: 5px;
+        }
+
+
+        /* ==============================
+           BUTTONS
+        ============================== */
+
+        button {
+
+            font-family: inherit;
+        }
+
+
+        .button-row {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+
+        .main-button {
+
+            border: none;
+
+            padding:
+                12px
+                18px;
+
+            border-radius: 15px;
+
+            background: #a873bd;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s,
+                opacity 0.2s;
+        }
+
+
+        .main-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            opacity: 0.9;
+        }
+
+
+        .reset-button {
+
+            background: #d58ba9;
+        }
+
+
+        .music-button {
+
+            background: #8066a8;
+        }
+
+
+        /* ==============================
+           CONTROLS
+        ============================== */
+
+        .controls h2 {
+
+            color: #9566ad;
+
+            margin-bottom: 15px;
+        }
+
+
+        .control-group {
+
+            margin-bottom: 14px;
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-weight: bold;
+
+            color: #694f76;
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border-radius: 12px;
+
+            border:
+                2px solid
+                #e2c7eb;
+
+            background: white;
+
+            color: #60496d;
+
+            font-size: 15px;
+        }
+
+
+        input:focus,
+        select:focus,
+        button:focus {
+
+            outline:
+                3px solid
+                #b88bd0;
+
+            outline-offset: 2px;
+        }
+
+
+        /* ==============================
+           COLOR BUTTONS
+        ============================== */
+
+        .color-buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .color-button {
+
+            width: 55px;
+            height: 55px;
+
+            border: 3px solid white;
+
+            border-radius: 15px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 3px 10px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.1
+                );
+        }
+
+
+        .pink {
+
+            background: #ffd3e7;
+        }
+
+
+        .purple {
+
+            background: #dfd1ff;
+        }
+
+
+        .gradient {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffd3e7,
+                    #dfd1ff
+                );
+        }
+
+
+        .blue {
+
+            background: #d7ecff;
+        }
+
+
+        /* ==============================
+           MUSIC STATUS
+        ============================== */
+
+        .music-status {
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            font-size: 13px;
+
+            color: #816b89;
+        }
+
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        footer {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #806687;
+
+            font-size: 14px;
+        }
+
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 800px) {
+
+            body {
+                padding: 12px;
+            }
+
+
+            .game {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            #avatar {
+
+                width: 280px;
+                height: 350px;
+            }
+        }
+
+
+        @media (max-width: 400px) {
+
+            #avatar {
+
+                width: 250px;
+                height: 320px;
+            }
+
+
+            .card {
+
+                padding: 18px;
+            }
+
+
+            header h1 {
+
+                font-size: 29px;
+            }
+        }
+
+
+        /* ==============================
+           REDUCED MOTION
+        ============================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            * {
+
+                scroll-behavior: auto !important;
+
+                transition: none !important;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- ==========================
+         HEADER
+    =========================== -->
+
+    <header>
+
+        <h1>
+            🎀 My Cute Avatar Creator
+        </h1>
+
+        <p>
+            Create your own cartoon profile!
+        </p>
+
+    </header>
+
+
+
+    <!-- ==========================
+         GAME
+    =========================== -->
+
+    <main class="game">
+
+
+        <!-- ======================
+             AVATAR PREVIEW
+        ======================= -->
+
+        <section
+            class="card preview-card"
+            aria-label="Avatar preview"
+        >
+
+            <h2>
+                ✨ Your Avatar
+            </h2>
+
+
+            <div
+                id="avatar"
+                role="img"
+                aria-label="Your custom cartoon avatar"
+            >
+
+
+                <!-- BODY -->
+
+                <div
+                    id="avatarBody"
+                    class="avatar-body"
+                ></div>
+
+
+                <!-- NECK -->
+
+                <div
+                    id="neck"
+                    class="neck"
+                ></div>
+
+
+                <!-- FACE -->
+
+                <div
+                    id="face"
+                    class="face"
+                >
+
+
+                    <div
+                        class="blush left"
+                    ></div>
+
+
+                    <div
+                        class="blush right"
+                    ></div>
+
+
+                    <div class="eyes">
+
+                        <span
+                            id="leftEye"
+                            class="eye"
+                        ></span>
+
+                        <span
+                            id="rightEye"
+                            class="eye"
+                        ></span>
+
+                    </div>
+
+
+                    <div
+                        id="mouth"
+                        class="mouth"
+                    >
+                        ♡
+                    </div>
+
+                </div>
+
+
+                <!-- HAIR -->
+
+                <div
+                    id="hair"
+                    class="hair"
+                >
+
+                    <div
+                        class="hair-front"
+                    ></div>
+
+                </div>
+
+
+                <!-- ACCESSORY -->
+
+                <div
+                    id="accessory"
+                    class="accessory"
+                ></div>
+
+            </div>
+
+
+            <div
+                id="profileName"
+                class="profile-name"
+            >
+                My Avatar
+            </div>
+
+
+            <div
+                id="profileSubtitle"
+                class="profile-subtitle"
+            >
+                Cute • Creative • You
+            </div>
+
+
+            <div class="button-row">
+
+
+                <button
+                    id="downloadBtn"
+                    class="main-button"
+                    type="button"
+                >
+                    💾 Download Avatar
+                </button>
+
+
+                <button
+                    id="resetBtn"
+                    class="main-button reset-button"
+                    type="button"
+                >
+                    🔄 Reset
+                </button>
+
+
+            </div>
+
+
+            <div class="button-row">
+
+
+                <button
+                    id="musicBtn"
+                    class="main-button music-button"
+                    type="button"
+                >
+                    🔊 Music OFF
+                </button>
+
+            </div>
+
+
+            <p
+                id="musicStatus"
+                class="music-status"
+            >
+                Tap Music to start the background sound 🎵
+            </p>
+
+        </section>
+
+
+
+        <!-- ======================
+             CUSTOMIZATION
+        ======================= -->
+
+        <section
+            class="card controls"
+            aria-label="Avatar customization controls"
+        >
+
+            <h2>
+                🎨 Customize Your Avatar
+            </h2>
+
+
+            <!-- NAME -->
+
+            <div class="control-group">
+
+                <label for="nameInput">
+                    ✨ Profile Name
+                </label>
+
+                <input
+                    id="nameInput"
+                    type="text"
+                    maxlength="20"
+                    placeholder="Enter your name"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- SKIN -->
+
+            <div class="control-group">
+
+                <label for="skinSelect">
+                    🤎 Skin Tone
+                </label>
+
+                <select id="skinSelect">
+
+                    <option
+                        value="#f3bd9c"
+                    >
+                        Light
+                    </option>
+
+                    <option
+                        value="#df9d78"
+                    >
+                        Warm
+                    </option>
+
+                    <option
+                        value="#bd7957"
+                    >
+                        Tan
+                    </option>
+
+                    <option
+                        value="#8b513b"
+                    >
+                        Deep
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- HAIR -->
+
+            <div class="control-group">
+
+                <label for="hairSelect">
+                    💇 Hair
+                </label>
+
+                <select id="hairSelect">
+
+                    <option value="brown">
+                        🤎 Brown
+                    </option>
+
+                    <option value="black">
+                        🖤 Black
+                    </option>
+
+                    <option value="blonde">
+                        💛 Blonde
+                    </option>
+
+                    <option value="pink">
+                        💗 Pink
+                    </option>
+
+                    <option value="purple">
+                        💜 Purple
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- EYES -->
+
+            <div class="control-group">
+
+                <label for="eyesSelect">
+                    👀 Eyes
+                </label>
+
+                <select id="eyesSelect">
+
+                    <option value="normal">
+                        Cute Eyes
+                    </option>
+
+                    <option value="heart">
+                        Heart Eyes
+                    </option>
+
+                    <option value="star">
+                        Star Eyes
+                    </option>
+
+                    <option value="closed">
+                        Closed Eyes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- MOUTH -->
+
+            <div class="control-group">
+
+                <label for="mouthSelect">
+                    😊 Mouth
+                </label>
+
+                <select id="mouthSelect">
+
+                    <option value="♡">
+                        Cute
+                    </option>
+
+                    <option value="⌣">
+                        Smile
+                    </option>
+
+                    <option value="ω">
+                        Happy
+                    </option>
+
+                    <option value="•ᴗ•">
+                        Soft Smile
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- OUTFIT -->
+
+            <div class="control-group">
+
+                <label for="outfitSelect">
+                    👗 Outfit
+                </label>
+
+                <select id="outfitSelect">
+
+                    <option
+                        value="#d995c5"
+                    >
+                        💗 Pink
+                    </option>
+
+                    <option
+                        value="#b79bd7"
+                    >
+                        💜 Purple
+                    </option>
+
+                    <option
+                        value="#9ec5df"
+                    >
+                        💙 Blue
+                    </option>
+
+                    <option
+                        value="#f1c27d"
+                    >
+                        💛 Yellow
+                    </option>
+
+                    <option
+                        value="#9fc49b"
+                    >
+                        💚 Green
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ACCESSORY -->
+
+            <div class="control-group">
+
+                <label for="accessorySelect">
+                    🎀 Accessory
+                </label>
+
+                <select id="accessorySelect">
+
+                    <option value="">
+                        None
+                    </option>
+
+                    <option value="🎀">
+                        Bow
+                    </option>
+
+                    <option value="👑">
+                        Crown
+                    </option>
+
+                    <option value="🌸">
+                        Flower
+                    </option>
+
+                    <option value="⭐">
+                        Star
+                    </option>
+
+                    <option value="🕶️">
+                        Glasses
+                    </option>
+
+                    <option value="✨">
+                        Sparkles
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- BACKGROUND -->
+
+            <div class="control-group">
+
+                <label>
+                    🌸 Avatar Background
+                </label>
+
+
+                <div class="color-buttons">
+
+
+                    <button
+                        type="button"
+                        class="color-button pink"
+                        data-bg="pink"
+                        aria-label="Light pink background"
+                    ></button>
+
+
+                    <button
+                        type="button"
+                        class="color-button purple"
+                        data-bg="purple"
+                        aria-label="Light purple background"
+                    ></button>
+
+
+                    <button
+                        type="button"
+                        class="color-button gradient"
+                        data-bg="gradient"
+                        aria-label="Pink and purple gradient background"
+                    ></button>
+
+
+                    <button
+                        type="button"
+                        class="color-button blue"
+                        data-bg="blue"
+                        aria-label="Light blue background"
+                    ></button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        ✨ Create your own character • Be creative • Be yourself ✨
+
+    </footer>
+
+
+</div>
+
+
+
+<script>
+
+    /* =========================================
+       ELEMENTS
+    ========================================= */
+
+    const avatar =
+        document.getElementById("avatar");
+
+    const face =
+        document.getElementById("face");
+
+    const neck =
+        document.getElementById("neck");
+
+    const avatarBody =
+        document.getElementById("avatarBody");
+
+    const hair =
+        document.getElementById("hair");
+
+    const hairFront =
+        document.querySelector(".hair-front");
+
+    const leftEye =
+        document.getElementById("leftEye");
+
+    const rightEye =
+        document.getElementById("rightEye");
+
+    const mouth =
+        document.getElementById("mouth");
+
+    const accessory =
+        document.getElementById("accessory");
+
+    const nameInput =
+        document.getElementById("nameInput");
+
+    const profileName =
+        document.getElementById("profileName");
+
+    const skinSelect =
+        document.getElementById("skinSelect");
+
+    const hairSelect =
+        document.getElementById("hairSelect");
+
+    const eyesSelect =
+        document.getElementById("eyesSelect");
+
+    const mouthSelect =
+        document.getElementById("mouthSelect");
+
+    const outfitSelect =
+        document.getElementById("outfitSelect");
+
+    const accessorySelect =
+        document.getElementById("accessorySelect");
+
+    const downloadBtn =
+        document.getElementById("downloadBtn");
+
+    const resetBtn =
+        document.getElementById("resetBtn");
+
+    const musicBtn =
+        document.getElementById("musicBtn");
+
+    const musicStatus =
+        document.getElementById("musicStatus");
+
+
+    /* =========================================
+       NAME
+    ========================================= */
+
+    nameInput.addEventListener(
+        "input",
+        function () {
+
+            const name =
+                nameInput.value.trim();
+
+            profileName.textContent =
+                name || "My Avatar";
+        }
+    );
+
+
+    /* =========================================
+       SKIN
+    ========================================= */
+
+    skinSelect.addEventListener(
+        "change",
+        function () {
+
+            face.style.backgroundColor =
+                skinSelect.value;
+
+            neck.style.backgroundColor =
+                skinSelect.value;
+        }
+    );
+
+
+    /* =========================================
+       HAIR
+    ========================================= */
+
+    hairSelect.addEventListener(
+        "change",
+        function () {
+
+            const color =
+                hairSelect.value;
+
+            const colors = {
+
+                brown: "#4b302a",
+
+                black: "#211b25",
+
+                blonde: "#e8bd62",
+
+                pink: "#e58ab7",
+
+                purple: "#9574bd"
+            };
+
+            hair.style.backgroundColor =
+                colors[color];
+
+            hairFront.style.backgroundColor =
+                colors[color];
+        }
+    );
+
+
+    /* =========================================
+       EYES
+    ========================================= */
+
+    eyesSelect.addEventListener(
+        "change",
+        function () {
+
+            const type =
+                eyesSelect.value;
+
+
+            if (type === "normal") {
+
+                leftEye.textContent = "";
+                rightEye.textContent = "";
+
+                leftEye.style.background =
+                    "#39283e";
+
+                rightEye.style.background =
+                    "#39283e";
+            }
+
+
+            if (type === "heart") {
+
+                leftEye.textContent = "♥";
+                rightEye.textContent = "♥";
+
+                leftEye.style.background =
+                    "transparent";
+
+                rightEye.style.background =
+                    "transparent";
+
+                leftEye.style.color =
+                    "#9d4f67";
+
+                rightEye.style.color =
+                    "#9d4f67";
+
+                leftEye.style.fontSize =
+                    "25px";
+
+                rightEye.style.fontSize =
+                    "25px";
+            }
+
+
+            if (type === "star") {
+
+                leftEye.textContent = "★";
+                rightEye.textContent = "★";
+
+                leftEye.style.background =
+                    "transparent";
+
+                rightEye.style.background =
+                    "transparent";
+
+                leftEye.style.color =
+                    "#6c5685";
+
+                rightEye.style.color =
+                    "#6c5685";
+
+                leftEye.style.fontSize =
+                    "23px";
+
+                rightEye.style.fontSize =
+                    "23px";
+            }
+
+
+            if (type === "closed") {
+
+                leftEye.textContent = "⌒";
+                rightEye.textContent = "⌒";
+
+                leftEye.style.background =
+                    "transparent";
+
+                rightEye.style.background =
+                    "transparent";
+
+                leftEye.style.color =
+                    "#39283e";
+
+                rightEye.style.color =
+                    "#39283e";
+
+                leftEye.style.fontSize =
+                    "25px";
+
+                rightEye.style.fontSize =
+                    "25px";
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       MOUTH
+    ========================================= */
+
+    mouthSelect.addEventListener(
+        "change",
+        function () {
+
+            mouth.textContent =
+                mouthSelect.value;
+        }
+    );
+
+
+    /* =========================================
+       OUTFIT
+    ========================================= */
+
+    outfitSelect.addEventListener(
+        "change",
+        function () {
+
+            avatarBody.style.backgroundColor =
+                outfitSelect.value;
+        }
+    );
+
+
+    /* =========================================
+       ACCESSORY
+    ========================================= */
+
+    accessorySelect.addEventListener(
+        "change",
+        function () {
+
+            accessory.textContent =
+                accessorySelect.value;
+        }
+    );
+
+
+    /* =========================================
+       BACKGROUNDS
+    ========================================= */
+
+    const backgroundButtons =
+        document.querySelectorAll(
+            ".color-button"
+        );
+
+
+    backgroundButtons.forEach(
+        function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const background =
+                        button.dataset.bg;
+
+
+                    if (background === "pink") {
+
+                        avatar.style.background =
+                            "#ffd3e7";
+                    }
+
+
+                    if (background === "purple") {
+
+                        avatar.style.background =
+                            "#dfd1ff";
+                    }
+
+
+                    if (background === "gradient") {
+
+                        avatar.style.background =
+                            "linear-gradient(135deg,#ffd3e7,#dfd1ff)";
+                    }
+
+
+                    if (background === "blue") {
+
+                        avatar.style.background =
+                            "#d7ecff";
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =========================================
+       RESET
+    ========================================= */
+
+    resetBtn.addEventListener(
+        "click",
+        function () {
+
+            nameInput.value = "";
+
+            profileName.textContent =
+                "My Avatar";
+
+
+            skinSelect.value =
+                "#f3bd9c";
+
+            face.style.backgroundColor =
+                "#f3bd9c";
+
+            neck.style.backgroundColor =
+                "#f3bd9c";
+
+
+            hairSelect.value =
+                "brown";
+
+            hair.style.backgroundColor =
+                "#4b302a";
+
+            hairFront.style.backgroundColor =
+                "#4b302a";
+
+
+            eyesSelect.value =
+                "normal";
+
+            leftEye.textContent = "";
+            rightEye.textContent = "";
+
+            leftEye.style.background =
+                "#39283e";
+
+            rightEye.style.background =
+                "#39283e";
+
+
+            mouthSelect.value =
+                "♡";
+
+            mouth.textContent =
+                "♡";
+
+
+            outfitSelect.value =
+                "#d995c5";
+
+            avatarBody.style.backgroundColor =
+                "#d995c5";
+
+
+            accessorySelect.value =
+                "";
+
+            accessory.textContent =
+                "";
+
+
+            avatar.style.background =
+                "linear-gradient(135deg,#ffd3e7,#dfd1ff)";
+
+        }
+    );
+
+
+    /* =========================================
+       DOWNLOAD AVATAR
+       
+       Uses SVG → Canvas → PNG
+       
+       No external library required.
+    ========================================= */
+
+    downloadBtn.addEventListener(
+        "click",
+        function () {
+
+            const name =
+                nameInput.value.trim()
+                || "My-Avatar";
+
+
+            const skin =
+                skinSelect.value;
+
+            const outfit =
+                outfitSelect.value;
+
+
+            const hairChoice =
+                hairSelect.value;
+
+
+            const hairColors = {
+
+                brown: "#4b302a",
+
+                black: "#211b25",
+
+                blonde: "#e8bd62",
+
+                pink: "#e58ab7",
+
+                purple: "#9574bd"
+            };
+
+
+            const hairColor =
+                hairColors[hairChoice];
+
+
+            const selectedAccessory =
+                accessorySelect.value;
+
+
+            const selectedMouth =
+                mouthSelect.value;
+
+
+            let background =
+                "#ffd3e7";
+
+
+            const currentBackground =
+                avatar.style.background;
+
+
+            if (
+                currentBackground.includes(
+                    "dfd1ff"
+                )
+            ) {
+
+                background =
+                    "#dfd1ff";
+            }
+
+
+            /*
+             * Create SVG.
+             */
+
+            const svg = `
+
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="700"
+                height="800"
+                viewBox="0 0 700 800"
+            >
+
+                <defs>
+
+                    <linearGradient
+                        id="bg"
+                        x1="0"
+                        y1="0"
+                        x2="1"
+                        y2="1"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="${background}"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#eadcff"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+
+                <rect
+                    width="700"
+                    height="800"
+                    rx="50"
+                    fill="url(#bg)"
+                />
+
+
+                <!-- decorative stars -->
+
+                <text
+                    x="70"
+                    y="100"
+                    font-size="50"
+                >
+                    ✦
+                </text>
+
+                <text
+                    x="580"
+                    y="150"
+                    font-size="55"
+                >
+                    ♡
+                </text>
+
+
+                <!-- body -->
+
+                <path
+                    d="
+                    M210 800
+                    C210 610
+                    490 610
+                    490 800
+                    Z
+                    "
+                    fill="${outfit}"
+                />
+
+
+                <!-- neck -->
+
+                <rect
+                    x="325"
+                    y="480"
+                    width="50"
+                    height="100"
+                    rx="20"
+                    fill="${skin}"
+                />
+
+
+                <!-- face -->
+
+                <ellipse
+                    cx="350"
+                    cy="400"
+                    rx="150"
+                    ry="175"
+                    fill="${skin}"
+                />
+
+
+                <!-- hair -->
+
+                <path
+                    d="
+                    M190 400
+                    C140 170
+                    250 80
+                    350 100
+                    C470 75
+                    560 200
+                    500 410
+                    C480 290
+                    450 240
+                    350 250
+                    C260 235
+                    220 300
+                    190 400
+                    Z
+                    "
+                    fill="${hairColor}"
+                />
+
+
+                <!-- eyes -->
+
+                <circle
+                    cx="295"
+                    cy="390"
+                    r="18"
+                    fill="#39283e"
+                />
+
+                <circle
+                    cx="405"
+                    cy="390"
+                    r="18"
+                    fill="#39283e"
+                />
+
+
+                <!-- eye highlights -->
+
+                <circle
+                    cx="289"
+                    cy="383"
+                    r="5"
+                    fill="white"
+                />
+
+                <circle
+                    cx="399"
+                    cy="383"
+                    r="5"
+                    fill="white"
+                />
+
+
+                <!-- blush -->
+
+                <ellipse
+                    cx="255"
+                    cy="445"
+                    rx="35"
+                    ry="15"
+                    fill="#ed8da8"
+                    opacity="0.45"
+                />
+
+                <ellipse
+                    cx="445"
+                    cy="445"
+                    rx="35"
+                    ry="15"
+                    fill="#ed8da8"
+                    opacity="0.45"
+                />
+
+
+                <!-- mouth -->
+
+                <text
+                    x="350"
+                    y="470"
+                    text-anchor="middle"
+                    font-size="35"
+                    fill="#9d4f67"
+                >
+                    ${selectedMouth}
+                </text>
+
+
+                <!-- accessory -->
+
+                <text
+                    x="350"
+                    y="145"
+                    text-anchor="middle"
+                    font-size="75"
+                >
+                    ${selectedAccessory}
+                </text>
+
+
+                <!-- name -->
+
+                <text
+                    x="350"
+                    y="735"
+                    text-anchor="middle"
+                    font-family="Arial"
+                    font-size="38"
+                    font-weight="bold"
+                    fill="#765285"
+                >
+                    ${escapeXML(name)}
+                </text>
+
+            </svg>
+            `;
+
+
+            const blob =
+                new Blob(
+                    [svg],
+                    {
+                        type:
+                            "image/svg+xml"
+                    }
+                );
+
+
+            const url =
+                URL.createObjectURL(blob);
+
+
+            const image =
+                new Image();
+
+
+            image.onload =
+                function () {
+
+                    const canvas =
+                        document.createElement(
+                            "canvas"
+                        );
+
+
+                    canvas.width =
+                        700;
+
+                    canvas.height =
+                        800;
+
+
+                    const context =
+                        canvas.getContext(
+                            "2d"
+                        );
+
+
+                    context.drawImage(
+                        image,
+                        0,
+                        0
+                    );
+
+
+                    URL.revokeObjectURL(
+                        url
+                    );
+
+
+                    const link =
+                        document.createElement(
+                            "a"
+                        );
+
+
+                    link.download =
+                        name
+                        .replace(
+                            /[^a-z0-9]/gi,
+                            "-"
+                        )
+                        + "-avatar.png";
+
+
+                    link.href =
+                        canvas.toDataURL(
+                            "image/png"
+                        );
+
+
+                    link.click();
+
+                };
+
+
+            image.src =
+                url;
+
+        }
+    );
+
+
+    /* =========================================
+       ESCAPE XML
+    ========================================= */
+
+    function escapeXML(text) {
+
+        return text
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&apos;"
+            );
+    }
+
+
+    /* =========================================
+       BACKGROUND MUSIC
+       
+       Uses Web Audio API.
+       No MP3 file is required.
+    ========================================= */
+
+    let audioContext = null;
+
+    let musicPlaying = false;
+
+    let musicTimer = null;
+
+
+    const notes = [
+        261.63,
+        329.63,
+        392.00,
+        329.63,
+        293.66,
+        349.23,
+        440.00,
+        349.23
+    ];
+
+
+    let noteIndex = 0;
+
+
+    function playNote() {
+
+        if (!audioContext) {
+            return;
+        }
+
+
+        const oscillator =
+            audioContext.createOscillator();
+
+
+        const gain =
+            audioContext.createGain();
+
+
+        oscillator.type =
+            "sine";
+
+
+        oscillator.frequency.value =
+            notes[noteIndex];
+
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            audioContext.currentTime
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.035,
+            audioContext.currentTime + 0.05
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            audioContext.currentTime + 0.8
+        );
+
+
+        oscillator.connect(gain);
+
+        gain.connect(
+            audioContext.destination
+        );
+
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime + 0.85
+        );
+
+
+        noteIndex =
+            (noteIndex + 1)
+            % notes.length;
+    }
+
+
+    function startMusic() {
+
+        if (!audioContext) {
+
+            audioContext =
+                new (
+                    window.AudioContext ||
+                    window.webkitAudioContext
+                )();
+        }
+
+
+        if (
+            audioContext.state ===
+            "suspended"
+        ) {
+
+            audioContext.resume();
+        }
+
+
+        if (musicPlaying) {
+            return;
+        }
+
+
+        musicPlaying = true;
+
+
+        playNote();
+
+
+        musicTimer =
+            setInterval(
+                playNote,
+                900
+            );
+
+
+        musicBtn.textContent =
+            "🔇 Music ON — Tap to Stop";
+
+
+        musicStatus.textContent =
+            "Soft background music is playing 🎵";
+    }
+
+
+    function stopMusic() {
+
+        musicPlaying = false;
+
+
+        if (musicTimer) {
+
+            clearInterval(
+                musicTimer
+            );
+
+            musicTimer = null;
+        }
+
+
+        musicBtn.textContent =
+            "🔊 Music OFF — Tap to Play";
+
+
+        musicStatus.textContent =
+            "Music is turned off 🔇";
+    }
+
+
+    musicBtn.addEventListener(
+        "click",
+        function () {
+
+            if (musicPlaying) {
+
+                stopMusic();
+
+            } else {
+
+                startMusic();
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
